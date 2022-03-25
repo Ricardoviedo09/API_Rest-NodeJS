@@ -14,5 +14,10 @@ routes.get('/', (req, res)=>{
     })
 })
 
+//POST
+
+//PUT
+
+//DEL
 
 module.exports = routes
