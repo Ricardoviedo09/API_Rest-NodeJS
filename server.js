@@ -1,18 +1,11 @@
-const express = require('express')
-const mysql = require('mysql')
-const myconn = require('express-myconnection')
-const routes = require('./routes')
-const cors = require('cors')
-const app = express()
+const express = require('express');
+const mysql = require('mysql');
+const myconn = require('express-myconnection');
+const routes = require('./routes');
+const cors = require('cors');
+const app = express();
 
-
-const db = {
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: '',
-    database: 'codigosusuarios'
-}
+require('./db');
 
 const corsOptions = {
     origin: '*',
@@ -24,8 +17,9 @@ const corsOptions = {
 
 app.set('port', process.env.PORT || 9000)
 
-app.use(myconn(mysql, db, 'single'))
+//app.use(myconn(mysql, db, 'single'))
 app.use(cors(corsOptions))
+app.use(express.json())
 
 // Routes
 
