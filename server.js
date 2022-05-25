@@ -20,6 +20,7 @@ app.set('port', process.env.PORT || 9000)
 //app.use(myconn(mysql, db, 'single'))
 app.use(cors(corsOptions))
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 // Routes
 

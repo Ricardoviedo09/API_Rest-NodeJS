@@ -2,7 +2,7 @@ const express = require('express')
 const routes = express.Router()
 const {User} = require('./db')
 
-//GET
+//Get all code data.
 routes.get('/', async (req, res)=>{
     try{
         const employees = await User.findAll();
@@ -12,16 +12,33 @@ routes.get('/', async (req, res)=>{
     }    
 })
 
-//POST
-routes.post('/', async (req, res)=>{
+//Register users by getting the username from the form and generating the code randomly.
+routes.post('/create', async (req, res)=>{
     try{
-        const employee = await User.create(req.body);
-        res.json(employee);
+        let {username} = req.body;
+        var code = Math.floor(1000 + Math.random() * 9000);
+        let employee = {
+            "usuario": username,
+            "codigo": code
+        }
+
+        const validateCode = await User.findByPk(code,{
+            where:{
+                codigo: code
+            }
+        });
+
+        if(validateCode){
+            res.json({"Error": "Esta creado"});
+        }else{
+            User.create(employee);
+            res.redirect('http://192.168.36.221:91/');
+        }
     }catch{
         res.json({'Message': 'No data found'})
     }
 })
-//PUT
+//Update username and code records.
 routes.put('/:id', async (req, res)=>{
     try{
         await User.update(req.body, {
@@ -32,7 +49,7 @@ routes.put('/:id', async (req, res)=>{
         res.json({'Message': 'No data found'})
     }
 })
-//DEL
+//Delete records.
 routes.delete('/:id', async (req, res)=>{
     try{
         await User.destroy({
