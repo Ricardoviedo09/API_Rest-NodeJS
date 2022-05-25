@@ -2,8 +2,8 @@ const Sequelize = require('sequelize');
 
 const usersModel = require('./models/users');
 
-const sequelize = new Sequelize('codigosusuarios','root', '', {
-    host: 'localhost',
+const sequelize = new Sequelize('gZvl0VCO5H','gZvl0VCO5H', 'JbU8r5RcYF', {
+    host: 'remotemysql.com',
     dialect: 'mysql'
 })
 
